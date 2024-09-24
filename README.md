@@ -24,16 +24,33 @@ cd <repository-directory>
 This script demonstrates how to train tokenizers on a sample text file, specifically using the `BasicTokenizer` class. The training process will create a vocabulary of 512 tokens based on byte pair encoding (BPE). The entire operation typically runs in around 25 seconds on a standard laptop.
 
 ## Prerequisites
+# Tokenizer Library
 
-To run this script, ensure you have the following:
+This repository contains a base `Tokenizer` class along with various helper functions to facilitate text tokenization. The library is designed to provide an extensible foundation for building specific tokenizers and includes functionalities for training vocabularies, encoding, decoding, and saving/loading models.
 
-- Python installed on your system.
-- The necessary modules (`os`, `time`, and `model` containing `BasicTokenizer`).
+## Overview
+
+The main features of this library include:
+
+- A base `Tokenizer` class that provides essential methods for training and managing tokenization.
+- Helper functions to gather statistics about token IDs, merge consecutive token pairs, and handle control characters.
+- Support for saving and loading tokenization models and vocabularies.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Creating a Custom Tokenizer](#creating-a-custom-tokenizer)
+  - [Training a Tokenizer](#training-a-tokenizer)
+  - [Saving and Loading Models](#saving-and-loading-models)
+- [Helper Functions](#helper-functions)
+- [Example](#example)
+- [Testing](#testing)
 
 
-1. **Prepare Your Text File**:
-   Ensure that you have a text file named `taylorswift.txt` in the `tests` directory. This file will be used as the training data for the tokenizer.
 
-2. **Run the Script**:
-   Execute the script using Python. This will train the tokenizer and save the model files to a designated directory.
+
+## testing:
+
+pytest -v .
 ```
