@@ -1,14 +1,3 @@
-# Byte Pair Encoding (BPE) Tokenizer
-
-A byte-pair encoding (BPE) tokenizer that encodes and decodes text based on byte-level tokenization and subsequent merging of the most frequent token pairs. This tokenizer starts by converting text into bytes (integers in the range 0-255) and iteratively merges the most common byte pairs to form new tokens, allowing for an extended vocabulary.
-
-## Features
-
-- Encodes and decodes text using byte-level representation.
-- Supports the merging of frequently occurring byte pairs to extend the vocabulary.
-- Adjustable vocabulary size.
-- Verbose output for tracking merges during training.
-
 
 # Project Overview: Optimizing Tokenization in Large Language Models (LLMs)
 
