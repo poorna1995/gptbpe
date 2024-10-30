@@ -1,7 +1,7 @@
 
 
 
-### Let's build a Byte Pair Encoding Algorithm
+### Let's build a Byte Pair Encoding Algorithm (Tokenization method) :
 
 The project explains the process or workflow of the Byte pair Encoding(BPE) algorithm which is used in the LLMs Tokenization (GPT model) to convert the sequence of raw text into tokens (numerical representation). The BPE algorithm is "byte-level" because it runs on UTF-8 encoded strings
 
