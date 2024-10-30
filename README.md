@@ -21,7 +21,7 @@ cd <repository-directory>
 
 # Tokenizer Training Example
 
-This script demonstrates how to train tokenizers on a sample text file, specifically using the `BasicTokenizer` class. The training process will create a vocabulary of 512 tokens based on byte pair encoding (BPE). The entire operation typically runs in around 25 seconds on a standard laptop.
+This script demonstrates how to train tokenizers on a sample text file, specifically using the `BytePairTokenizer` class. The training process will create a vocabulary of 512 tokens based on byte pair encoding (BPE). The entire operation typically runs in around 25 seconds on a standard laptop.
 
 ## Prerequisites
 # Tokenizer Library

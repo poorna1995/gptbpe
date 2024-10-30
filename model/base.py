@@ -8,7 +8,7 @@ some concessions are made for simplicity.
 import unicodedata
 
 # -----------------------------------------------------------------------------
-# a few helper functions useful for both BasicTokenizer and RegexTokenizer
+# a few helper functions useful for both BytePairTokenizer and RegexTokenizer
 
 
 
