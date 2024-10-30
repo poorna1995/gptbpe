@@ -73,7 +73,7 @@ Now that we understand BPE, let’s implement it.
    pip install -r requirements.txt
 
   
-4. **Understand the Code Structure**
+4. **Understand the Code**
    ```bash
    model/basic.py: Contains the main BytePairTokenizer() class implementing BPE logic.
    model/base.py: Holds helper functions supporting BytePairTokenizer() operations.
