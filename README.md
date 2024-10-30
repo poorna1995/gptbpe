@@ -3,7 +3,11 @@
 
 ### Let's build a Byte Pair Encoding Algorithm (Tokenization method) :
 
-The project explains the process or workflow of the Byte pair Encoding(BPE) algorithm which is used in the LLMs Tokenization (GPT model) to convert the sequence of raw text into tokens (numerical representation). The BPE algorithm is "byte-level" because it runs on UTF-8 encoded strings
+The project explains the process or workflow of the Byte pair Encoding(BPE) algorithm which is used in the LLMs Tokenization (GPT model) to convert the sequence of raw text into tokens (numerical representation). The BPE algorithm is "byte-level" because it runs on UTF-8 encoded strings.
+
+
+<img width="771" alt="Screenshot 2024-10-30 at 5 28 54 PM" src="https://github.com/user-attachments/assets/7ac1a230-1628-4c14-a84f-a072d4f17716">
+
 
 ### Why do LLMs require Tokenisation?
 Large language models (LLMs) require tokenization because, at their core, they do not inherently understand raw text. For LLMs to process and "understand" language, text must first be converted into a structured, numerical format that they can analyze. Tokenization serves this purpose by breaking down raw text into manageable units, called tokens, which represent meaningful segments of the text.
