@@ -21,7 +21,7 @@ Byte Pair Encoding (BPE) tokenizer is a subword tokenization algorithm that spli
 
 
 
-<img width="400" height="500" alt="Screenshot 2024-10-30 at 5 28 54 PM" src="https://github.com/user-attachments/assets/7ac1a230-1628-4c14-a84f-a072d4f17716">
+<img width="770" alt="Screenshot 2024-10-30 at 5 28 54 PM" src="https://github.com/user-attachments/assets/7ac1a230-1628-4c14-a84f-a072d4f17716">
 
                  
                  
@@ -43,7 +43,8 @@ Byte Pair Encoding (BPE) tokenizer is a subword tokenization algorithm that spli
 This iterative process allows LLMs to represent language with fewer tokens while preserving efficiency.
 
 
- ![bpe](https://github.com/user-attachments/assets/51d69f84-a777-4748-b578-84824561c7f4)
+![bpe](https://github.com/user-attachments/assets/37b86fe5-b4de-4e0a-b14c-57ea3c66b20f)
+
 
 
 #### Key Benefits:
