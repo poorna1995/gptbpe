@@ -12,24 +12,8 @@ import unicodedata
 
 
 
-"""
-    Given a list of integers, return a dictionary of counts of consecutive pairs.
-    
-    Args:
-        ids (list of int): A list of integers representing token IDs.
-        counts (dict, optional): An existing dictionary of counts. If provided,
-                                 the counts will be updated.
-    
-    Returns:
-        dict: A dictionary where keys are consecutive pairs of integers (as tuples) 
-              from `ids`, and values are their counts.
-    
-    Example:
-        >>> ids = [1, 2, 3, 1, 2]
-        >>> get_stats(ids)
-        {(1, 2): 2, (2, 3): 1, (3, 1): 1}
-"""
-def get_stats(ids, counts=None):
+
+def get_freq(ids, counts=None):
     """
     Given a list of integers, return a dictionary of counts of consecutive pairs
     Example: [1, 2, 3, 1, 2] -> {(1, 2): 2, (2, 3): 1, (3, 1): 1}
@@ -58,7 +42,7 @@ def get_stats(ids, counts=None):
         >>> merge(ids, (1, 2), 4)
         [4, 3, 4]
 """
-def merge(ids, pair, idx):
+def merge_ids(ids, pair, idx):
     """
     In the list of integers (ids), replace all consecutive occurrences
     of pair with the new integer token idx

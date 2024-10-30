@@ -35,7 +35,7 @@ tokenizer.train(text, vocab_size, verbose=True)
 """
 
 
-from .base import Tokenizer, get_stats, merge
+from base import Tokenizer, get_freq, merge_ids
 
 """
     A byte-pair encoding (BPE) tokenizer that encodes and decodes text based on 
@@ -91,13 +91,13 @@ class BytePairTokenizer(Tokenizer):
         for i in range(num_merges):
                 
             #{(101,103):2,(103,52):1,(52,124):1}
-            stats = get_stats(ids)
+            stats = get_freq(ids)
             # pair = #(101,103)
             pair = max(stats, key=stats.get)
             #idx = 256+0 =256
             idx = 256 + i
             # ids = [256,52,124,90,35,13,256,235]
-            ids = merge(ids,pair,idx)
+            ids = merge_ids(ids,pair,idx)
             merges[pair] = idx
             vocab[idx] = vocab[pair[0]]+vocab[pair[1]]
             if verbose:
@@ -162,8 +162,8 @@ class BytePairTokenizer(Tokenizer):
         ids = list(text_bytes) # list of integers in range 0..255
         while len(ids) >= 2:
             # find the pair with the lowest merge index
-            stats = get_stats(ids)
-            merges = {(1,2):10,(2,4):8}
+            stats = get_freq(ids)
+            # merges = {(1,2):10,(2,4):8}
             pair = min(stats, key=lambda p: self.merges.get(p, float("inf")))
             # subtle: if there are no more merges available, the key will
             # result in an inf for every single pair, and the min will be
@@ -173,7 +173,7 @@ class BytePairTokenizer(Tokenizer):
                 break # nothing else can be merged anymore
             # otherwise let's merge the best pair (lowest merge index)
             idx = self.merges[pair]
-            ids = merge(ids, pair, idx)
+            ids = merge_ids(ids, pair, idx)
         return ids
 
 

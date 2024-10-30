@@ -1,5 +1,5 @@
 import regex as re
-from .base import Tokenizer, get_stats,merge
+from .base import Tokenizer, get_freq,merge
 
 
 
@@ -84,7 +84,7 @@ class RegexTokenizer(Tokenizer):
             # Count the occurrences of every consecutive pair
             stats = {}
             for chunks_ids in ids:
-                get_stats(chunks_ids, stats)
+                get_freq(chunks_ids, stats)
             # Input: ids may look like [b'Hello', b',', b'world', ...]
             # Expected Output: stats = [(72, 101): 1, (101, 108): 1, ...]
 
@@ -96,7 +96,7 @@ class RegexTokenizer(Tokenizer):
             # Example: idx = 256 for the first merge
 
             # Merge the pair in the token lists
-            ids = [merge(chunk_ids, pair, idx) for chunk_ids in ids]
+            ids = [merge_ids(chunk_ids, pair, idx) for chunk_ids in ids]
             # Output: [[72, 101, 108, 108, 111], [44], [119, 111, 114, 108, 100], [33], [84, 104, 105, 115], [105, 115], [97], [256, 115, 116], [115, 101, 110, 256, 110, 99, 101], [46], [60, 124, 101, 110, 100, 111, 102, 256, 120, 116, 124, 62], [76, 101, 116], [39, 115], [115, 101, 101], [104, 111, 119], [105, 116], [119, 111, 114, 107, 115], [46]]
 
             merges[pair] = idx  # Store the merge
@@ -106,7 +106,7 @@ class RegexTokenizer(Tokenizer):
             # Output: vocab = {256: b'el', ...}
 
             if verbose:
-                print(f"merge {i + 1}/{num_merges}: {pair} -> {idx} ({vocab[idx]}) had {stats[pair]} occurrences")
+                print(f"merge_ids {i + 1}/{num_merges}: {pair} -> {idx} ({vocab[idx]}) had {stats[pair]} occurrences")
                 # Example Output: merge 1/44: (101, 108) -> 256 (b'el') had 5 occurrences
 
         # Save class variables
@@ -196,7 +196,7 @@ class RegexTokenizer(Tokenizer):
 
         while len(ids) >= 2:
             # Find the pair with the lowest merge index
-            stats = get_stats(ids)
+            stats = get_freq(ids)
             pair = min(stats, key=lambda p: self.merges.get(p, float("inf")))
             # Example Output: pair = (72, 101) for 'H', 'e'
 
@@ -205,7 +205,7 @@ class RegexTokenizer(Tokenizer):
             
             idx = self.merges[pair]  # Get the index of the merge
             # Example Output: idx = 256
-            ids = merge(ids, pair, idx)  # Merge the best pair
+            ids = merge_ids(ids, pair, idx)  # Merge the best pair
             # Output: ids updated with merged tokens
 
         return ids  # Return the final token IDs
