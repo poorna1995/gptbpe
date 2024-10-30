@@ -12,6 +12,7 @@ text = open("tests/taylorswift.txt", "r", encoding="utf-8").read()
 
 # create a directory for models, so we don't pollute the current directory
 os.makedirs("models", exist_ok=True)
+# define the time
 
 t0 = time.time()
 for TokenizerClass, name in zip([BasicTokenizer], ["basic"]):
