@@ -63,14 +63,14 @@ Now that we understand BPE, let’s implement it.
    cd <repository_name>
 
 2. **Create a Virtual Environment**
-  ```bash
-  python3 -m venv bpe_env
-  source bpe_env/bin/activate  # Linux/Mac
-  bpe_env\Scripts\activate  # Windows
+   ```bash
+   python3 -m venv bpe_env
+   source bpe_env/bin/activate  # Linux/Mac
+   bpe_env\Scripts\activate  # Windows
   
 3. **Install Dependencies Install all required packages:**
-  ```bash
-  pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
 
   
 4. **Understand the Code Structure**
@@ -79,12 +79,12 @@ Now that we understand BPE, let’s implement it.
    model/base.py: Holds helper functions supporting BytePairTokenizer() operations.
 
 5. **Train the Model Run the training script on a sample corpus:**
-    ```bash
-    python train.py
+   ```bash
+   python train.py
 
 7. **Test the Model Validate tokenization on sample input:**
-    ```bash
-    python test.py 
+   ```bash
+   python test.py 
 
 
 #### References 
