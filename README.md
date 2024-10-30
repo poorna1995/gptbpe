@@ -26,9 +26,9 @@ Byte Pair Encoding (BPE) tokenizer is a subword tokenization algorithm that spli
 
                  
                  
-         #### Converting the sequence of raw into tokens - (numerical representation)
+         Converting the sequence of raw into tokens - (numerical representation) - How are we achieving this? Let's dig into it is the working process 
 
- How are we achieving this? Let's dig into it is the working process 
+ 
 
  ### Let's see how the BPE Works.
  BPE iteratively merges the most frequent pairs of characters in a vocabulary. This process results in a vocabulary of variable-length character sequences that can represent an open vocabulary
