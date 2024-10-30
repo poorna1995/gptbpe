@@ -12,7 +12,7 @@ Large language models (LLMs) require tokenization because, at their core, they d
 Yes, there are many other methods such as:
 - Character-based - ['1','q','f', 'h', 'k',.....]
 - Word based - ['hello',' how',' there', 'enjoy',' holiday',.....]
-- Subword-based (BPE - used IN GPT, Wordpiece - used in BERT )  
+- Subword-based (BPE - used in GPT, Wordpiece - used in BERT )  
 
 
 ### Now, let's understand what it is Byte Pair Encoding?
