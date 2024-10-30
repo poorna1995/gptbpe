@@ -22,7 +22,7 @@ This tokenizer is a simplified implementation of Byte Pair Encoding (BPE), a com
 
 ```python
 # Create a tokenizer instance
-tokenizer = BasicTokenizer()
+tokenizer = BytePairTokenizer()
 
 # Sample input text
 text = "Hello, world! This is a test for Byte Pair Encoding."
@@ -47,24 +47,7 @@ from .base import Tokenizer, get_stats, merge
 
     Attributes:
         merges (dict): A dictionary that maps pairs of byte tokens to new token ids.
-        vocab (dict): A dictionary that maps token ids to their byte representations.
-
-    Example:
-        tokenizer = BasicTokenizer()
-        tokenizer.train("hello world", vocab_size=300)
-        
-        encoded = tokenizer.encode("hello")
-        print("Encoded:", encoded)  # Output: [104, 101, 108, 108, 111]
-        
-        decoded = tokenizer.decode(encoded)
-        print("Decoded:", decoded)  # Output: hello
-
-
-
-        Initializes the BasicTokenizer by calling the superclass initializer.
-        
-        Example:
-            tokenizer = BasicTokenizer()
+        vocab (dict): A dictionary that maps token ids to their byte representations
             
 """
 
@@ -80,7 +63,7 @@ from .base import Tokenizer, get_stats, merge
             verbose (bool): If True, prints information about each merge.
 
         Example:
-            tokenizer = BasicTokenizer()
+            tokenizer = BytePairTokenizer()
             tokenizer.train("hello world", vocab_size=300, verbose=True)
             
             # Sample output (with verbose=True):
@@ -90,45 +73,38 @@ from .base import Tokenizer, get_stats, merge
         Raises:
             AssertionError: If vocab_size is less than 256.
 """
-class BasicTokenizer(Tokenizer):
+
+class BytePairTokenizer(Tokenizer):
     def __init__(self):
         super().__init__()
-
     def train(self, text, vocab_size, verbose=False):
-
+        # vocab_size=300
         assert vocab_size >= 256
+        #num_merges =300-256 = 44
         num_merges = vocab_size - 256
-
-        # input text preprocessing
-        text_bytes = text.encode("utf-8") # raw bytes
-        ids = list(text_bytes) # list of integers in range 0..255
-        print(f'tokens for the text {ids}')
-
-        # iteratively merge the most common pairs to create new tokens
-        merges = {} # (int, int) -> int
+        # text = "i ampoorna praneesha, woking as a senior software engineer at hivepath an startup company"
+        text_bytes = text.encode('utf-8')
+        # ids =[101,103,52,124,90,35,13,101,103,235]
+        ids = list(text_bytes)
+        merges={}
         vocab = {idx: bytes([idx]) for idx in range(256)} # int -> bytes
         for i in range(num_merges):
-            # count up the number of times every consecutive pair appears
+                
+            #{(101,103):2,(103,52):1,(52,124):1}
             stats = get_stats(ids)
-            # find the pair with the highest count
+            # pair = #(101,103)
             pair = max(stats, key=stats.get)
-            # mint a new token: assign it the next available id
+            #idx = 256+0 =256
             idx = 256 + i
-            # replace all occurrences of pair in ids with idx
-            ids = merge(ids, pair, idx)
-            # save the merge
+            # ids = [256,52,124,90,35,13,256,235]
+            ids = merge(ids,pair,idx)
             merges[pair] = idx
-            print(f"merged pairs :{merges}")
-            vocab[idx] = vocab[pair[0]] + vocab[pair[1]]
-            # prints
+            vocab[idx] = vocab[pair[0]]+vocab[pair[1]]
             if verbose:
                 print(f"merge {i+1}/{num_merges}: {pair} -> {idx} ({vocab[idx]}) had {stats[pair]} occurrences")
-
-        # save class variables
         self.merges = merges # used in encode()
         self.vocab = vocab   # used in decode()
 
-    def decode(self, ids):
 
         """
         Decodes a list of token ids back into a string.
@@ -140,7 +116,7 @@ class BasicTokenizer(Tokenizer):
             str: The decoded string.
 
         Example:
-            tokenizer = BasicTokenizer()
+            tokenizer = BytePairTokenizer()
             tokenizer.train("hello world", vocab_size=300)
             
             encoded = tokenizer.encode("hello")
@@ -151,11 +127,14 @@ class BasicTokenizer(Tokenizer):
         """
 
 
+    def decode(self,ids):
         # given ids (list of integers), return Python string
-        text_bytes = b"".join(self.vocab[idx] for idx in ids)
-        text = text_bytes.decode("utf-8", errors="replace")
+        text_bytes= b"".join(self.vocab[idx] for idx in ids)
+        text = text_bytes.decode('utf-8',errors ='replace')
         return text
 
+
+  
     def encode(self, text):
 
 
@@ -170,7 +149,7 @@ class BasicTokenizer(Tokenizer):
             list: A list of token ids representing the encoded text.
 
         Example:
-            tokenizer = BasicTokenizer()
+            tokenizer = BytePairTokenizer()
             tokenizer.train("hello world", vocab_size=300)
             
             token_ids = tokenizer.encode("hello")
@@ -184,6 +163,7 @@ class BasicTokenizer(Tokenizer):
         while len(ids) >= 2:
             # find the pair with the lowest merge index
             stats = get_stats(ids)
+            merges = {(1,2):10,(2,4):8}
             pair = min(stats, key=lambda p: self.merges.get(p, float("inf")))
             # subtle: if there are no more merges available, the key will
             # result in an inf for every single pair, and the min will be
@@ -200,7 +180,7 @@ class BasicTokenizer(Tokenizer):
 
 
 # Initializing and training the tokenizer
-tokenizer = BasicTokenizer()
+tokenizer = BytePairTokenizer()
 tokenizer.train("hello world how are you doing how", vocab_size=258, verbose=True)
 
 # Encoding a string
