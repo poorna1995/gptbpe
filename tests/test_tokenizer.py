@@ -2,7 +2,7 @@ import pytest
 import tiktoken
 import os
 
-from model import BasicTokenizer
+from model import BytPairTokenizer,RegexTokenizer
 
 # -----------------------------------------------------------------------------
 # common test data
@@ -49,7 +49,7 @@ The ancestors of llamas are thought to have originated from the Great Plains of 
 # tests
 
 # test encode/decode identity for a few different strings
-@pytest.mark.parametrize("tokenizer_factory", [BasicTokenizer])
+@pytest.mark.parametrize("tokenizer_factory", [BytePairTokenizer, RegexTokenizer])
 @pytest.mark.parametrize("text", test_strings)
 def test_encode_decode_identity(tokenizer_factory, text):
     text = unpack(text)
@@ -60,7 +60,8 @@ def test_encode_decode_identity(tokenizer_factory, text):
 
 
 # reference test to add more tests in the future
-@pytest.mark.parametrize("tokenizer_factory", [BasicTokenizer])
+# reference test to add more tests in the future
+@pytest.mark.parametrize("tokenizer_factory", [BytePairTokenizer, RegexTokenizer])
 def test_wikipedia_example(tokenizer_factory):
     """
     Quick unit test, following along the Wikipedia example:
@@ -88,6 +89,32 @@ def test_wikipedia_example(tokenizer_factory):
     ids = tokenizer.encode(text)
     assert ids == [258, 100, 258, 97, 99]
     assert tokenizer.decode(tokenizer.encode(text)) == text
+
+@pytest.mark.parametrize("special_tokens", [{}, special_tokens])
+def test_save_load(special_tokens):
+    # take a bit more complex piece of text and train the tokenizer, chosen at random
+    text = llama_text
+    # create a Tokenizer and do 64 merges
+    tokenizer = RegexTokenizer()
+    tokenizer.train(text, 256 + 64)
+    tokenizer.register_special_tokens(special_tokens)
+    # verify that decode(encode(x)) == x
+    assert tokenizer.decode(tokenizer.encode(text, "all")) == text
+    # verify that save/load work as expected
+    ids = tokenizer.encode(text, "all")
+    # save the tokenizer (TODO use a proper temporary directory)
+    tokenizer.save("test_tokenizer_tmp")
+    # re-load the tokenizer
+    tokenizer = RegexTokenizer()
+    tokenizer.load("test_tokenizer_tmp.model")
+    # verify that decode(encode(x)) == x
+    assert tokenizer.decode(ids) == text
+    assert tokenizer.decode(tokenizer.encode(text, "all")) == text
+    assert tokenizer.encode(text, "all") == ids
+    # delete the temporary files
+    for file in ["test_tokenizer_tmp.model", "test_tokenizer_tmp.vocab"]:
+        os.remove(file)
+
 
 if __name__ == "__main__":
     pytest.main()
