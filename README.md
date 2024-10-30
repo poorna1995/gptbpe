@@ -1,4 +1,8 @@
 
+
+
+
+
 # Project Overview: Optimizing Tokenization in Large Language Models (LLMs)
 
 Tokenization is a fundamental component in Large Language Models (LLMs), directly affecting computational efficiency, context length, and vocabulary management. Poor tokenization strategies can significantly inflate computation requirements, making optimization critical for models like GPT, LLaMA, and others. This project focuses on optimizing tokenization by moving beyond naive methods and implementing Byte Pair Encoding (BPE) with additional regex-based preprocessing.
@@ -14,6 +18,11 @@ BPE reduces the vocabulary size by iteratively merging the most frequent pairs o
 - **Smaller Vocabulary Size:** Fewer distinct tokens mean reduced memory consumption and faster training times.
 - **Improved Handling of Rare Words:** Instead of treating rare words as OOV tokens, BPE decomposes them into subword units, ensuring better generalization.
 - **Effect on Context Length:** With a reduced vocabulary, more tokens can fit within a fixed context window. BPE optimizes the trade-off between vocabulary size and context length, allowing the model to handle longer input sequences efficiently while preserving context and improving overall performance.
+
+
+## Workflow of BPE:
+![bpe](https://github.com/user-attachments/assets/0dbc17ec-d860-4202-b22b-a5778e305637)
+
 
 ## Regex-Based Preprocessing
 
