@@ -21,7 +21,9 @@ BPE reduces the vocabulary size by iteratively merging the most frequent pairs o
 
 
 ## Workflow of BPE:
-![bpe](https://github.com/user-attachments/assets/0dbc17ec-d860-4202-b22b-a5778e305637)
+
+![bpe](https://github.com/user-attachments/assets/51d69f84-a777-4748-b578-84824561c7f4)
+
 
 
 ## Regex-Based Preprocessing
